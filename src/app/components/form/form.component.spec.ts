@@ -11,9 +11,7 @@ import { NO_ERRORS_SCHEMA,
          CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-describe('FormComponent', () => {
-  let component: FormComponent;
-  let fixture: ComponentFixture<FormComponent>;
+
   class RepositoryServiceStub{
     savePins(){
       return of(true);
@@ -33,6 +31,11 @@ describe('FormComponent', () => {
       }
     }
   }
+
+  fdescribe('FormComponent', () => {
+    let component: FormComponent;
+    let fixture: ComponentFixture<FormComponent>;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ FormComponent ],
