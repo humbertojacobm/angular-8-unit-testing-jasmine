@@ -71,4 +71,17 @@ import { ReactiveFormsModule } from '@angular/forms';
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('when component is initializated',() => {
+    it('Should create the forms', () => {
+      console.log(component.firstFormGroup.controls);
+      expect(Object.keys(component.firstFormGroup.controls))
+      .toEqual(['title',
+                'author',
+                'description'
+      ]);
+    })
+  })
+
+
 });
