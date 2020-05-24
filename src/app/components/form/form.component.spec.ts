@@ -7,6 +7,8 @@ import { RepositoryService } from 'src/app/services/repository.service';
 import { of } from 'rxjs';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { MatSnackBar } from '@angular/material';
+import { NO_ERRORS_SCHEMA,
+         CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -46,6 +48,10 @@ describe('FormComponent', () => {
           provide: MatSnackBar,
           useClass: MatSnackBarStub,
         }
+      ],
+      schemas:[
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
       ]
     })
     .compileComponents();
