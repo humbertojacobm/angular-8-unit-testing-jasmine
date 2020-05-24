@@ -98,5 +98,16 @@ import { ReactiveFormsModule,
     })
   });
 
+  describe('when delete asset', () => {
+    it('should remove the form control', () => {
+      const assets = <FormArray>component.secondFormGroup.get('assets');
+      component.addAsset();
+      component.deleteAsset(0);
+      expect(Object.keys(assets.controls)).toEqual([]);
+    })
+  })
+
+
+
 
 });
