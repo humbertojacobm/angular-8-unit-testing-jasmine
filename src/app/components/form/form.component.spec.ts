@@ -9,6 +9,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { MatSnackBar } from '@angular/material';
 import { NO_ERRORS_SCHEMA,
          CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -52,7 +53,8 @@ describe('FormComponent', () => {
       schemas:[
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
-      ]
+      ],
+      imports: [ReactiveFormsModule]
     })
     .compileComponents();
   }));
