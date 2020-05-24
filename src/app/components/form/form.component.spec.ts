@@ -9,7 +9,8 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { MatSnackBar } from '@angular/material';
 import { NO_ERRORS_SCHEMA,
          CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,
+         FormArray } from '@angular/forms';
 
 
   class RepositoryServiceStub{
@@ -80,8 +81,22 @@ import { ReactiveFormsModule } from '@angular/forms';
                 'author',
                 'description'
       ]);
+      expect(Object.keys(component.secondFormGroup.controls))
+      .toEqual(['firstAsset',
+                'assets'
+      ]);
+
     })
   })
+  describe('When addAsset is executed',() => {
+    it('adding new assets', () => {
+      const assets = <FormArray>component.secondFormGroup.get('assets');
+      component.addAsset();
+      component.addAsset();
+      console.log(Object.keys(assets.controls));
+      expect(Object.keys(assets.controls)).toEqual(['0','1']);
+    })
+  });
 
 
 });
