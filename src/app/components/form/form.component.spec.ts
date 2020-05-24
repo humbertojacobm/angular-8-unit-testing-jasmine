@@ -110,8 +110,8 @@ import { ReactiveFormsModule,
   describe('when savePins is executed', () => {
     it('should navigates to pins view', () => {
       const navigate = spyOn((<any>component).navigate,'goToPins');
-      const open = spyOn((<any>component).snackBar,'open')
-      .and.callThrough();
+      //const open = spyOn((<any>component).snackBar,'open')
+      //.and.callThrough();
 
       component.savePin();
 
