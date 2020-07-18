@@ -13,116 +13,116 @@ import { ReactiveFormsModule,
          FormArray } from '@angular/forms';
 
 
-  class RepositoryServiceStub{
-    savePins(){
-      return of(true);
-    }
-  }
-  class NavigationServiceStub{
-    goToPins(){
+//   class RepositoryServiceStub{
+//     savePins(){
+//       return of(true);
+//     }
+//   }
+//   class NavigationServiceStub{
+//     goToPins(){
 
-    }
-  }
-  class MatSnackBarStub{
-    open(){
-      return {
-        afterDismissed: () => {
-          return of(true);
-        }
-      }
-    }
-  }
+//     }
+//   }
+//   class MatSnackBarStub{
+//     open(){
+//       return {
+//         afterDismissed: () => {
+//           return of(true);
+//         }
+//       }
+//     }
+//   }
 
-  fdescribe('FormComponent', () => {
-    let component: FormComponent;
-    let fixture: ComponentFixture<FormComponent>;
+//   fdescribe('FormComponent', () => {
+//     let component: FormComponent;
+//     let fixture: ComponentFixture<FormComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FormComponent ],
-      providers: [
-        {
-          provide: RepositoryService,
-          useClass: RepositoryServiceStub
-        },
-        {
-          provide: NavigationService,
-          useClass: NavigationServiceStub
-        },
-        {
-          provide: MatSnackBar,
-          useClass: MatSnackBarStub,
-        }
-      ],
-      schemas:[
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-      ],
-      imports: [ReactiveFormsModule]
-    })
-    .compileComponents();
-  }));
+//   beforeEach(async(() => {
+//     TestBed.configureTestingModule({
+//       declarations: [ FormComponent ],
+//       providers: [
+//         {
+//           provide: RepositoryService,
+//           useClass: RepositoryServiceStub
+//         },
+//         {
+//           provide: NavigationService,
+//           useClass: NavigationServiceStub
+//         },
+//         {
+//           provide: MatSnackBar,
+//           useClass: MatSnackBarStub,
+//         }
+//       ],
+//       schemas:[
+//         NO_ERRORS_SCHEMA,
+//         CUSTOM_ELEMENTS_SCHEMA
+//       ],
+//       imports: [ReactiveFormsModule]
+//     })
+//     .compileComponents();
+//   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FormComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(FormComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
 
-  describe('when component is initializated',() => {
-    it('Should create the forms', () => {
-      console.log(component.firstFormGroup.controls);
-      expect(Object.keys(component.firstFormGroup.controls))
-      .toEqual(['title',
-                'author',
-                'description'
-      ]);
-      expect(Object.keys(component.secondFormGroup.controls))
-      .toEqual(['firstAsset',
-                'assets'
-      ]);
+//   describe('when component is initializated',() => {
+//     it('Should create the forms', () => {
+//       console.log(component.firstFormGroup.controls);
+//       expect(Object.keys(component.firstFormGroup.controls))
+//       .toEqual(['title',
+//                 'author',
+//                 'description'
+//       ]);
+//       expect(Object.keys(component.secondFormGroup.controls))
+//       .toEqual(['firstAsset',
+//                 'assets'
+//       ]);
 
-    })
-  })
-  describe('When addAsset is executed',() => {
-    it('adding new assets', () => {
-      const assets = <FormArray>component.secondFormGroup.get('assets');
-      component.addAsset();
-      component.addAsset();
-      console.log(Object.keys(assets.controls));
-      expect(Object.keys(assets.controls)).toEqual(['0','1']);
-    })
-  });
+//     })
+//   })
+//   describe('When addAsset is executed',() => {
+//     it('adding new assets', () => {
+//       const assets = <FormArray>component.secondFormGroup.get('assets');
+//       component.addAsset();
+//       component.addAsset();
+//       console.log(Object.keys(assets.controls));
+//       expect(Object.keys(assets.controls)).toEqual(['0','1']);
+//     })
+//   });
 
-  describe('when delete asset', () => {
-    it('should remove the form control', () => {
-      const assets = <FormArray>component.secondFormGroup.get('assets');
-      component.addAsset();
-      component.deleteAsset(0);
-      expect(Object.keys(assets.controls)).toEqual([]);
-    })
-  })
+//   describe('when delete asset', () => {
+//     it('should remove the form control', () => {
+//       const assets = <FormArray>component.secondFormGroup.get('assets');
+//       component.addAsset();
+//       component.deleteAsset(0);
+//       expect(Object.keys(assets.controls)).toEqual([]);
+//     })
+//   })
 
-  describe('when savePins is executed', () => {
-    it('should navigates to pins view', () => {
-      const navigate = spyOn((<any>component).navigate,'goToPins');
-      const open = spyOn((<any>component).snackBar,'open')
-      .and.callThrough();
+//   describe('when savePins is executed', () => {
+//     it('should navigates to pins view', () => {
+//       const navigate = spyOn((<any>component).navigate,'goToPins');
+//       const open = spyOn((<any>component).snackBar,'open')
+//       .and.callThrough();
 
-      component.savePin();
+//       component.savePin();
 
-      expect(navigate).toHaveBeenCalled();
-      expect(open).toHaveBeenCalledWith(
-        'Your pin is saved, Redirecting ...',
-        'Cool!',
-        {duration: 2000});
-    })
-  })
+//       expect(navigate).toHaveBeenCalled();
+//       expect(open).toHaveBeenCalledWith(
+//         'Your pin is saved, Redirecting ...',
+//         'Cool!',
+//         {duration: 2000});
+//     })
+//   })
 
 
 
-});
+// });
