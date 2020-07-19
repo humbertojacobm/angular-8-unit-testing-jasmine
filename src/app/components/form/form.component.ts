@@ -66,7 +66,7 @@ export class FormComponent implements OnInit {
           duration: 2000
         })
         .afterDismissed()
-        .subscribe(() => {
+        .subscribe((response) => {
           this.navigate.goToPins();
         });
     });

@@ -4,21 +4,29 @@ import { ComponentFixture,
 import { ReactiveFormsModule } from "@angular/forms";
 import { NO_ERRORS_SCHEMA,
          CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
+import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from "@angular/material";
+
+import { Observable, of } from "rxjs";
 
 import { FormComponent } from "./form.component";
 import { RepositoryService } from "src/app/services/repository.service";
 import { NavigationService } from "src/app/services/navigation.service";
 
-class RepositoryServiceStub{
-
-}
+class RepositoryServiceStub{savePins(value: any): Observable<any>{return of("1");}}
 
 class NavigationServiceStub{
-
+  goToPins(){}
 }
 
-class MatSnackBarStub{}
+class MatSnackBarStub{
+  open(value1: string, value2: string, value: any): any{
+    return {
+      afterDismissed : () => {
+        return of("1");
+      }
+    };
+  }
+}
 
 
 fdescribe('FormComponent Test cases',()=> {
@@ -87,127 +95,25 @@ fdescribe('FormComponent Test cases',()=> {
       let finalAmountOfAssets = componetInstance.assets.length;
       expect(finalAmountOfAssets).toBe(previousAmountOfAssets);
     })
-  })
+  });
 
-
+  describe('SavePin method group', ()=>{
+    it('should be have a model to be processed', ()=>{
+      componetInstance.secondFormGroup.get("firstAsset").setValue("algun valor");
+      componetInstance.addAsset();
+      componetInstance.savePin();
+      expect(true).toBe(true);
+    });
+    it('goToPins have to be called', ()=> {
+      const open = spyOn((<any>componetInstance).snackBar,'open').and.callThrough();
+      const navigate = spyOn((<any>componetInstance).navigate,'goToPins');
+      componetInstance.savePin();
+      expect(true).toBe(true);
+      expect(open).toHaveBeenCalledWith('Your pin is saved, Redirecting ...', 'Cool!', {
+        duration: 2000
+      });
+      expect(open).toHaveBeenCalled();
+      expect(navigate).toHaveBeenCalled();
+    })
+  });
 })
-
-
-
-
-
-
-
-//   class RepositoryServiceStub{
-//     savePins(){
-//       return of(true);
-//     }
-//   }
-//   class NavigationServiceStub{
-//     goToPins(){
-
-//     }
-//   }
-//   class MatSnackBarStub{
-//     open(){
-//       return {
-//         afterDismissed: () => {
-//           return of(true);
-//         }
-//       }
-//     }
-//   }
-
-//   fdescribe('FormComponent', () => {
-//     let component: FormComponent;
-//     let fixture: ComponentFixture<FormComponent>;
-
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ FormComponent ],
-//       providers: [
-//         {
-//           provide: RepositoryService,
-//           useClass: RepositoryServiceStub
-//         },
-//         {
-//           provide: NavigationService,
-//           useClass: NavigationServiceStub
-//         },
-//         {
-//           provide: MatSnackBar,
-//           useClass: MatSnackBarStub,
-//         }
-//       ],
-//       schemas:[
-//         NO_ERRORS_SCHEMA,
-//         CUSTOM_ELEMENTS_SCHEMA
-//       ],
-//       imports: [ReactiveFormsModule]
-//     })
-//     .compileComponents();
-//   }));
-
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(FormComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-
-//   describe('when component is initializated',() => {
-//     it('Should create the forms', () => {
-//       console.log(component.firstFormGroup.controls);
-//       expect(Object.keys(component.firstFormGroup.controls))
-//       .toEqual(['title',
-//                 'author',
-//                 'description'
-//       ]);
-//       expect(Object.keys(component.secondFormGroup.controls))
-//       .toEqual(['firstAsset',
-//                 'assets'
-//       ]);
-
-//     })
-//   })
-//   describe('When addAsset is executed',() => {
-//     it('adding new assets', () => {
-//       const assets = <FormArray>component.secondFormGroup.get('assets');
-//       component.addAsset();
-//       component.addAsset();
-//       console.log(Object.keys(assets.controls));
-//       expect(Object.keys(assets.controls)).toEqual(['0','1']);
-//     })
-//   });
-
-//   describe('when delete asset', () => {
-//     it('should remove the form control', () => {
-//       const assets = <FormArray>component.secondFormGroup.get('assets');
-//       component.addAsset();
-//       component.deleteAsset(0);
-//       expect(Object.keys(assets.controls)).toEqual([]);
-//     })
-//   })
-
-//   describe('when savePins is executed', () => {
-//     it('should navigates to pins view', () => {
-//       const navigate = spyOn((<any>component).navigate,'goToPins');
-//       const open = spyOn((<any>component).snackBar,'open')
-//       .and.callThrough();
-
-//       component.savePin();
-
-//       expect(navigate).toHaveBeenCalled();
-//       expect(open).toHaveBeenCalledWith(
-//         'Your pin is saved, Redirecting ...',
-//         'Cool!',
-//         {duration: 2000});
-//     })
-//   })
-
-
-
-// });
