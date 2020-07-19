@@ -1,38 +1,28 @@
-import { async,
-         ComponentFixture,
-         TestBed } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from "@angular/core/testing";
+import { MenuComponent } from "./menu.component";
+import { By } from "@angular/platform-browser";
 
-import { MenuComponent } from './menu.component';
-import { By } from '@angular/platform-browser';
+fdescribe("menu component group",()=> {
 
-fdescribe('MenuComponent', () => {
-  let component: MenuComponent;
+  let componentInstance: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async(()=>{
     TestBed.configureTestingModule({
-      declarations: [ MenuComponent ]
-    })
-    .compileComponents();
-  }));
+      declarations:[MenuComponent]
+    }).compileComponents();
+  }))
 
-  beforeEach(() => {
+  beforeEach(()=>{
     fixture = TestBed.createComponent(MenuComponent);
-    component = fixture.componentInstance;
+    componentInstance = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    const title = fixture.debugElement.query(By.css('h1'));
-    expect(title.nativeElement.innerHTML).toBe('eLearning Management System');
-  });
-
-  it('testing ouput', () => {
-    const val = true;
-    component.clicked.subscribe(result => {
-        expect(result).toBe(val);
-    });
-
-    component.clicked.next(val);
+  describe("Testing markup",()=>{
+    const titleElement = fixture.debugElement.query(By.css("h1"));
+    expect(titleElement.nativeElement.InnerHTML).toBe("eLearning Management System");
   })
-});
+
+
+})
