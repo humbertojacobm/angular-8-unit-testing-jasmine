@@ -1,16 +1,101 @@
-import { async,
-         ComponentFixture,
-         TestBed } from '@angular/core/testing';
-
-import { FormComponent } from './form.component';
-import { RepositoryService } from 'src/app/services/repository.service';
-import { of } from 'rxjs';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { MatSnackBar } from '@angular/material';
+import { ComponentFixture,
+         async,
+         TestBed} from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
 import { NO_ERRORS_SCHEMA,
-         CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule,
-         FormArray } from '@angular/forms';
+         CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { MatSnackBar } from "@angular/material";
+
+import { FormComponent } from "./form.component";
+import { RepositoryService } from "src/app/services/repository.service";
+import { NavigationService } from "src/app/services/navigation.service";
+
+class RepositoryServiceStub{
+
+}
+
+class NavigationServiceStub{
+
+}
+
+class MatSnackBarStub{}
+
+
+fdescribe('FormComponent Test cases',()=> {
+  let componetInstance: FormComponent;
+  let fixture: ComponentFixture<FormComponent>;
+
+  beforeEach(async(()=>{
+    TestBed.configureTestingModule({
+       declarations: [FormComponent],
+       providers: [
+         {
+           provide: RepositoryService,
+           useClass: RepositoryServiceStub,
+         },
+         {
+          provide: NavigationService,
+          useClass: NavigationServiceStub,
+        },
+        {
+          provide: MatSnackBar,
+          useClass: MatSnackBarStub,
+        }],
+       schemas: [
+         NO_ERRORS_SCHEMA,
+         CUSTOM_ELEMENTS_SCHEMA
+       ],
+       imports:[ReactiveFormsModule]
+    }).compileComponents();
+
+  }));
+
+  beforeEach(()=> {
+    fixture = TestBed.createComponent(FormComponent);
+    componetInstance = fixture.componentInstance;
+    fixture.detectChanges();//this is import by the hook lifecyle
+  });
+
+  it('should create component',()=> {
+    expect(componetInstance).toBeTruthy();
+  })
+
+  describe('ngOnInit',()=>{
+    it('should create first form and second form, so we can check the controls ids',()=>{
+      expect(Object.keys(componetInstance.firstFormGroup.controls))
+      .toEqual(['title','author','description']);
+      expect(Object.keys(componetInstance.secondFormGroup.controls))
+      .toEqual(['firstAsset','assets']);
+    })
+  })
+
+  describe('AddSet',()=>{
+    it('should add url formGroup in assets formArray', ()=>{
+
+      componetInstance.addAsset();
+      expect(componetInstance.assets.length>0).toBeTruthy();
+    })
+  })
+
+  describe('DeleteAsset', ()=> {
+    it('should remove the formGroup in the assets', ()=> {
+      componetInstance.addAsset();
+      let previousAmountOfAssets = componetInstance.assets.length;
+      componetInstance.addAsset();
+      let lastIndex = componetInstance.assets.length -1;
+      componetInstance.deleteAsset(lastIndex);
+      let finalAmountOfAssets = componetInstance.assets.length;
+      expect(finalAmountOfAssets).toBe(previousAmountOfAssets);
+    })
+  })
+
+
+})
+
+
+
+
+
 
 
 //   class RepositoryServiceStub{
