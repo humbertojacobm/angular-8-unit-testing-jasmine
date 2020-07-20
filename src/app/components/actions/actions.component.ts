@@ -8,7 +8,7 @@ import { PinsService } from '../pins/pins.service';
   styleUrls: ['./actions.component.scss']
 })
 export class ActionsComponent {
-  constructor(private bottomSheetRef: MatBottomSheetRef<ActionsComponent>, private pinsService: PinsService) {}
+  constructor(public bottomSheetRef: MatBottomSheetRef<ActionsComponent>, public pinsService: PinsService) {}
 
   public openLink(event: MouseEvent, action: string): void {
     event.preventDefault();

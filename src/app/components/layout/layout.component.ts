@@ -12,9 +12,10 @@ import { filter } from 'rxjs/operators';
 export class LayoutComponent {
   public editMode = false;
 
-  constructor(private bottomSheet: MatBottomSheet, private router: Router) {}
+  constructor(private bottomSheet: MatBottomSheet, public router: Router) {}
 
   ngOnInit() {
+
     this.verifyEditMode(this.router.url);
 
     this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe((event: NavigationStart) => {
