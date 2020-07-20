@@ -20,9 +20,23 @@ fdescribe("menu component group",()=> {
   });
 
   describe("Testing markup",()=>{
-    const titleElement = fixture.debugElement.query(By.css("h1"));
-    expect(titleElement.nativeElement.InnerHTML).toBe("eLearning Management System");
+    it('should have title', () => {
+      const titleElement = fixture.debugElement.query(By.css("h1"));
+      expect(titleElement.nativeElement.innerHTML).toBe("eLearning Management System");
+    })
   })
+
+  describe("Ouput",()=>{
+     it("should emmit", ()=>{
+
+      componentInstance.clicked.subscribe((response)=>{
+         expect(response).toBe(true);
+      })
+      // componentInstance.clicked.emit(true);
+      componentInstance.clicked.next(true);
+      expect(true).toBe(true);
+     })
+  });
 
 
 })
