@@ -18,15 +18,17 @@ export class PinsComponent {
   private currentSubscription: Subscription;
 
   constructor(
-    private repository: RepositoryService,
-    private snackBar: MatSnackBar,
+    public repository: RepositoryService,
+    public snackBar: MatSnackBar,
     private pinsService: PinsService,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
     this.repository.getPins().subscribe(pins => {
+      debugger;
       this.pins = pins.map(pin => {
+
         const controls = {};
 
         pin.assets.forEach(asset => {
@@ -39,7 +41,6 @@ export class PinsComponent {
         };
       });
     });
-
     this.pinsService.$actionObserver.pipe(filter(action => action === 'save')).subscribe(action => {
       this.updateProgress(this.step);
     });
@@ -59,6 +60,7 @@ export class PinsComponent {
   }
 
   public updateProgress(index) {
+
     const pin = this.pins[index];
 
     this.repository
