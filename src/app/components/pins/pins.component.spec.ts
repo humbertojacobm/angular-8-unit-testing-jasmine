@@ -100,4 +100,17 @@ fdescribe('Pins component',()=>{
     expect(windowOpen).toHaveBeenCalledWith(first,'_blank')
   })
 
+  it('should increment step', ()=>{
+    componentInstance.nextStep();
+    expect(componentInstance.step).toBeGreaterThan(0);
+  });
+
+  it('should decrement step', ()=>{
+    componentInstance.nextStep();
+    componentInstance.nextStep();
+    componentInstance.prevStep();
+    expect(componentInstance.step).toBe(1);
+  });
+
+
 })
