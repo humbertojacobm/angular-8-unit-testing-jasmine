@@ -148,7 +148,7 @@ fdescribe('Pins component',()=>{
 
   it('trying to mockup formGroup.valueChanges',()=>{
     //arrange
-    debugger;
+
     const index = 0;
     const repositoryService = TestBed.get(RepositoryService);
     const assetId = "5c520d9c7b26f12e6d0180a0";
@@ -161,9 +161,9 @@ fdescribe('Pins component',()=>{
 
     componentInstance.currentSubscription.closed = false;
 
+    const unsubscription = spyOn(componentInstance.currentSubscription,"unsubscribe");
     componentInstance.setStep(index);
-
-    expect(true).toBeTruthy();
+    expect(unsubscription).toHaveBeenCalled();
 
  })
 
