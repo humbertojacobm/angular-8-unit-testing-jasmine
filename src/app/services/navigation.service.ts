@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class NavigationService {
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   navigateTo(path) {
     this.router.navigate([path]);
