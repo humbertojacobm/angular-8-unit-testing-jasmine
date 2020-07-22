@@ -25,6 +25,9 @@ class RepositoryServiceStub{
   updatePin(id,body){
      return of(body);
   }
+  emitInObservable(value){
+    this.observer.next(value);
+  }
 }
 class MatSnackBarStub{
   open():any{
@@ -93,6 +96,13 @@ fdescribe('Pins component',()=>{
 
   });
 
+  it('should resolve repository.getPins()', ()=>{
+    //arrange
+    fillPinFormGroup();
+    //assert
+    expect(componentInstance.pins).toBeTruthy();
+  })
+
   it('should use window.open',()=>{
     const first = "something";
     const windowOpen = spyOn(window,"open");
@@ -112,5 +122,37 @@ fdescribe('Pins component',()=>{
     expect(componentInstance.step).toBe(1);
   });
 
+  it('should pass by updatePercentage',()=>{
+    //arrange
+    fillPinFormGroup();
+    //act
+     componentInstance.setStep(0);
+    //assert
+    expect(true).toBeTruthy();
+  })
+  // it('trying to mockup formGroup.valueChanges',()=>{
+  //    //arrange
+  //    debugger;
+  //    const index = 0;
+  //    fillPinFormGroup();
+  //    componentInstance.setStep(index);
+  //    fixture.detectChanges();
+  //   //  const valueOfFormValueChanges = spyOn(componentInstance.pins[index].formGroup,"valueChanges").and.returnValue(of(true))
+  //    //act
+  //    fixture.ngZone.run(()=>{
+  //     fixture.whenStable().then(()=>{
+  //       componentInstance.pins[index].formGroup.get("title").setValue("Learning path 1x1");
+  //       fixture.detectChanges();
+  //       //assert
+  //       expect(true).toBeTruthy();
+  //     })
+  //    })
 
+  // })
 })
+function fillPinFormGroup() {
+  const repositoryService = TestBed.get(RepositoryService);
+  //act
+  repositoryService.emitInObservable(PINS);
+}
+

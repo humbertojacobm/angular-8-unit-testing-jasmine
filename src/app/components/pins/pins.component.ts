@@ -26,19 +26,19 @@ export class PinsComponent {
 
   ngOnInit() {
     this.repository.getPins().subscribe(pins => {
-      debugger;
       this.pins = pins.map(pin => {
 
-        const controls = {};
+          const controls = {};
 
-        pin.assets.forEach(asset => {
-          controls[asset._id] = this.formBuilder.control(asset.readed);
-        });
+          pin.assets.forEach(asset => {
+            controls[asset._id] = this.formBuilder.control(asset.readed);
+          });
 
-        return {
-          ...pin,
-          formGroup: this.formBuilder.group(controls)
-        };
+          return {
+            ...pin,
+            formGroup: this.formBuilder.group(controls)
+          };
+
       });
     });
     this.pinsService.$actionObserver.pipe(filter(action => action === 'save')).subscribe(action => {
@@ -89,6 +89,7 @@ export class PinsComponent {
     }
 
     this.currentSubscription = this.pins[index].formGroup.valueChanges.subscribe(values => {
+      debugger;
       const keys = Object.keys(values);
       const total = keys.length;
       const active = keys.map(key => values[key]).filter(value => value);

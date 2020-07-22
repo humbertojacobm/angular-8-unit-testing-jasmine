@@ -38,5 +38,13 @@ fdescribe("menu component group",()=> {
      })
   });
 
+  it("should click the button to check the counter",()=>{
+    //arrange
+    const buttonElement = fixture.debugElement.query(By.css("button"));
+    //act
+    buttonElement.triggerEventHandler("click",null);
+    //assert
+    expect(componentInstance.counter).toBeGreaterThan(0);
+  })
 
 })
