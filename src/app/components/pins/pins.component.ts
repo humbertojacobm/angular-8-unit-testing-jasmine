@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 export class PinsComponent {
   public step = 0;
   public pins = [];
-  private currentSubscription: Subscription;
+  public currentSubscription: Subscription;
 
   constructor(
     public repository: RepositoryService,
@@ -89,7 +89,6 @@ export class PinsComponent {
     }
 
     this.currentSubscription = this.pins[index].formGroup.valueChanges.subscribe(values => {
-      debugger;
       const keys = Object.keys(values);
       const total = keys.length;
       const active = keys.map(key => values[key]).filter(value => value);
