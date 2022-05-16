@@ -15,11 +15,11 @@ import { Subscription } from 'rxjs';
 export class PinsComponent {
   public step = 0;
   public pins = [];
-  private currentSubscription: Subscription;
+  public currentSubscription: Subscription;
 
   constructor(
-    private repository: RepositoryService,
-    private snackBar: MatSnackBar,
+    public repository: RepositoryService,
+    public snackBar: MatSnackBar,
     private pinsService: PinsService,
     private formBuilder: FormBuilder
   ) {}
@@ -27,19 +27,20 @@ export class PinsComponent {
   ngOnInit() {
     this.repository.getPins().subscribe(pins => {
       this.pins = pins.map(pin => {
-        const controls = {};
 
-        pin.assets.forEach(asset => {
-          controls[asset._id] = this.formBuilder.control(asset.readed);
-        });
+          const controls = {};
 
-        return {
-          ...pin,
-          formGroup: this.formBuilder.group(controls)
-        };
+          pin.assets.forEach(asset => {
+            controls[asset._id] = this.formBuilder.control(asset.readed);
+          });
+
+          return {
+            ...pin,
+            formGroup: this.formBuilder.group(controls)
+          };
+
       });
     });
-
     this.pinsService.$actionObserver.pipe(filter(action => action === 'save')).subscribe(action => {
       this.updateProgress(this.step);
     });
@@ -59,6 +60,7 @@ export class PinsComponent {
   }
 
   public updateProgress(index) {
+
     const pin = this.pins[index];
 
     this.repository

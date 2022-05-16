@@ -11,10 +11,10 @@ import { MatSnackBar } from '@angular/material';
   encapsulation: ViewEncapsulation.None
 })
 export class FormComponent implements OnInit {
-  isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  assets: FormArray;
+  public isLinear = false;
+  public firstFormGroup: FormGroup;
+  public secondFormGroup: FormGroup;
+  public assets: FormArray;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -66,7 +66,7 @@ export class FormComponent implements OnInit {
           duration: 2000
         })
         .afterDismissed()
-        .subscribe(() => {
+        .subscribe((response) => {
           this.navigate.goToPins();
         });
     });
